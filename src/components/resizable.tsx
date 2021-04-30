@@ -18,7 +18,6 @@ const Resizable: React.FC<ResizableProps> = ({ direction, children }) => {
       if (timer) {
         clearTimeout(timer);
       }
-
       timer = setTimeout(() => {
         setInnerHeight(window.innerHeight);
         setInnerWidth(window.innerWidth);
@@ -43,7 +42,6 @@ const Resizable: React.FC<ResizableProps> = ({ direction, children }) => {
       width,
       resizeHandles: ["e"],
       onResizeStop: (event, data) => {
-        console.log(data.size.width);
         setWidth(data.size.width);
       },
     };
@@ -56,6 +54,7 @@ const Resizable: React.FC<ResizableProps> = ({ direction, children }) => {
       resizeHandles: ["s"],
     };
   }
+
   return <ResizableBox {...resizableProps}>{children}</ResizableBox>;
 };
 

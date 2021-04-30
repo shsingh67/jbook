@@ -29,15 +29,14 @@ export const fetchPlugin = (inputCode: string) => {
 
       build.onLoad({ filter: /.css$/ }, async (args: any) => {
         const { data, request } = await axios.get(args.path);
-
         const escaped = data
           .replace(/\n/g, "")
           .replace(/"/g, '\\"')
           .replace(/'/g, "\\'");
         const contents = `
-        const style = document.createElement('style');
-        style.innerText = '${escaped}';
-        document.head.appendChild(style);
+          const style = document.createElement('style');
+          style.innerText = '${escaped}';
+          document.head.appendChild(style);
         `;
 
         const result: esbuild.OnLoadResult = {
@@ -45,7 +44,6 @@ export const fetchPlugin = (inputCode: string) => {
           contents,
           resolveDir: new URL("./", request.responseURL).pathname,
         };
-
         await fileCache.setItem(args.path, result);
 
         return result;
@@ -59,7 +57,6 @@ export const fetchPlugin = (inputCode: string) => {
           contents: data,
           resolveDir: new URL("./", request.responseURL).pathname,
         };
-
         await fileCache.setItem(args.path, result);
 
         return result;
